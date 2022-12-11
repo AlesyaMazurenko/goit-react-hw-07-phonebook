@@ -3,16 +3,18 @@ import { nanoid } from 'nanoid';
 import './form.css';
 import { useDispatch, useSelector } from "react-redux";
 import { getContacts } from "redux/contacts/contacts-selector";
-import { addContact } from "redux/contacts/contacts-slice";
+import { contactsReducer } from "redux/contacts/contacts-slice";
 
-const initialState = {
-  name: '',
-  number: '',
-}
+// const initialState = {
+//   name: '',
+//   number: '',
+// }
 
 const Form = () => {
 
-  const [state, setState] = useState(initialState);
+  // const [state, setState] = useState(initialState);
+  const [name, setName] = useState('');
+  const [number, setPhone] = useState('');
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
@@ -21,12 +23,21 @@ const Form = () => {
 
   const handleInputChange = event => {
     const { name, value } = event.currentTarget;
-    setState((prevState) => {
-      return {
-        ...prevState,
-        [name]: value
-      }
-    });
+
+    switch (name) {
+      case 'name':
+        return setName(value);
+      case 'number':
+        return setPhone(value);
+      default:
+        return;
+    }
+    // setState((prevState) => {
+    //   return {
+    //     ...prevState,
+    //     [name]: value
+    //   }
+    // });
   };
   
   const isDuplicate = ({ name, number }) => {
@@ -41,19 +52,21 @@ const Form = () => {
       return alert(`Contact with name ${name} or number ${number} is already in list`)
     }
 
-    const action = addContact({ name, number });
+    const action = contactsReducer({ name, number });
     dispatch(action);
     reset();
   }
     
   const reset = () => {
-    setState({
-      name: '',
-      number: '',
-    });
+    setName('');
+    setPhone('');
+    // setState({
+    //   name: '',
+    //   number: '',
+    // });
   };
 
-  const { name, number } = state;
+  // const { name, number } = state;
 
   return (
     <form onSubmit={handleSubmit} className='form'>
