@@ -7,4 +7,3 @@ export const rootReducer = combineReducers({
     filter: filterReducer
 });
 
-
