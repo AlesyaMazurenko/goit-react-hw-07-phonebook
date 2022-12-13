@@ -15,11 +15,13 @@ export const getFilteredContacts = state => {
     }
 
     const normalizeFilter = filter.toLowerCase();
-    const filteredContacts = contacts.items.filter(({ name, number }) => {
+    const filteredContacts = contacts.items.filter(({ name, phone }) => {
       const normalizeName = name.toLowerCase();
-      const result = normalizeName.includes(normalizeFilter) || number.includes(normalizeFilter);
+      const result = normalizeName.includes(normalizeFilter) || phone.includes(normalizeFilter);
+      console.log(result);
       return result;
     })
+  console.log(filteredContacts);
     return filteredContacts;
   }
  
