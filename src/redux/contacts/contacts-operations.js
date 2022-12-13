@@ -2,11 +2,10 @@ import axios from 'axios';
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
 // import * as api from "../../shared/api/contacts";
-// import actions from './contacts-action';
 
 axios.defaults.baseURL = 'https://6391517b65ff4183112ad2e0.mockapi.io/api';
 
-// const isDublicate = ({ name, number }, contacts) => {
+// const isDublicate = ({ name, phone }, contacts) => {
 //     const normalizedName = name.toLowerCase();
 
 //     const result = contacts.find(item => {
@@ -18,11 +17,12 @@ axios.defaults.baseURL = 'https://6391517b65ff4183112ad2e0.mockapi.io/api';
 export const fetchContacts = createAsyncThunk(
     'contacts/fetchAll',
     async (_, thunkApi) => {
-    try {
-        const response = await axios.get('/contacts')
-        return response.data;
-    } catch (error) {
-        return thunkApi.rejectWithValue(error.message);
+        try {
+            const response = await axios.get('/contacts');
+            return response.data;
+        } catch (error) {  
+            return thunkApi.rejectWithValue(error.message);
+            
         }
     },
     //3й параметр проверки до віполнения запроса = чтобі остановить віполнениe фции fetch
