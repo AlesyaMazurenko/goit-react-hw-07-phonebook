@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { nanoid } from "nanoid";
 import { fetchContacts, addContact, deleteContact } from "./contacts-operations";
 
 // const initialContacts = [
