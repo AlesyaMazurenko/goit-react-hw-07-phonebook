@@ -7,16 +7,17 @@ export const ContactList = () => {
     
     const filteredContacts = useSelector(getFilteredContacts);
     const dispatch = useDispatch();
-    
+    console.log(filteredContacts);
+
     const onRemoveContact = (id) => {
         const action = deleteContact(id);    
         dispatch(action);
     }
     
-    const elements = filteredContacts.map(({ name, id, number }) => {
+    const elements = filteredContacts.map(({ name, phone, id }) => {
         return <li className="contacts_item" key={id}>
             
-            {name}: {number}
+            {name}: {phone}
             <button type="button" className='btn_remove' onClick={() => onRemoveContact(id)}>X</button>
         </li>
     })
