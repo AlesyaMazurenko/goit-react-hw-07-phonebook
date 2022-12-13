@@ -2,19 +2,15 @@ import React, { useState } from "react";
 import { nanoid } from 'nanoid';
 import './form.css';
 import { useDispatch, useSelector } from "react-redux";
+import { addContact } from "redux/contacts/contacts-operations";
 import { getContacts } from "redux/contacts/contacts-selector";
-import { contactsReducer } from "redux/contacts/contacts-slice";
-
-// const initialState = {
-//   name: '',
-//   number: '',
-// }
+// import { contactsReducer } from "redux/contacts/contacts-slice";
 
 const Form = () => {
 
   // const [state, setState] = useState(initialState);
   const [name, setName] = useState('');
-  const [number, setPhone] = useState('');
+  const [phone, setPhone] = useState('');
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
@@ -32,41 +28,30 @@ const Form = () => {
       default:
         return;
     }
-    // setState((prevState) => {
-    //   return {
-    //     ...prevState,
-    //     [name]: value
-    //   }
-    // });
   };
   
-  const isDuplicate = ({ name, number }) => {
-    const resullt = contacts.find((item) => item.name === name || item.number === number)
+  const isDuplicate = ({ name, phone }) => {
+    const resullt = contacts.find(item => item.name === name || item.phone  === phone);
     return resullt;
   } 
 
   const handleSubmit = (evt) => {
-    evt.preventDefault();  
+    evt.preventDefault();
 
-    if (isDuplicate({ name, number })) {
-      return alert(`Contact with name ${name} or number ${number} is already in list`)
+    if (isDuplicate({ name, phone })) {
+      return alert(`Contact with name ${name} or number ${phone} is already in list`);
     }
 
-    const action = contactsReducer({ name, number });
+    // const action = contactsReducer({ name, phone });
+    const action = addContact({ name, phone });
     dispatch(action);
     reset();
-  }
+  };
     
   const reset = () => {
     setName('');
     setPhone('');
-    // setState({
-    //   name: '',
-    //   number: '',
-    // });
   };
-
-  // const { name, number } = state;
 
   return (
     <form onSubmit={handleSubmit} className='form'>
@@ -90,7 +75,7 @@ const Form = () => {
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
           className="input_field"
-          value={number}
+          value={phone}
           onChange={handleInputChange}
           id={numberId} />
       </label> 
