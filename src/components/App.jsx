@@ -7,7 +7,7 @@ import './Form/form.css';
 import { useEffect } from "react";
 import { fetchContacts } from "redux/contacts/contacts-operations";
 import { useDispatch, useSelector } from "react-redux";
-import { getFilteredContacts, selectIsLoading, selectError, getContacts } from "redux/contacts/contacts-selector";
+import { getFilteredContacts, selectIsLoading, selectError } from "redux/contacts/contacts-selector";
 
 export function App() {
 
